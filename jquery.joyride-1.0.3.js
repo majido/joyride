@@ -41,6 +41,8 @@
 
       $(options.tipContent).hide();
 
+
+
       var bodyOffset = $(options.tipContainer).children('*').first().position(),
       tipContent = $(options.tipContent + ' li'),
       count = skipCount = 0,
@@ -152,7 +154,8 @@
               currentTip.fadeIn(settings.tipAnimationFadeSpeed);
             }
           }
-
+          //Trigger in event on tip element
+          tipElement.trigger("joyride/in");
           // ++++++++++++++++++
           //   Tip Location
           // ++++++++++++++++++
@@ -264,10 +267,16 @@
            $.cookie(settings.cookieName, 'ridden', { expires: 365, domain: settings.cookieDomain });
         }
         $(self).parent().hide();
+
         if (settings.postRideCallback != null) {
             settings.postRideCallback();
         }
+        $(options.tipContent).trigger("joyride/end");
       }
+
+      //Unbind previous handlers before binding new ones when a new tour starts
+      $('.joyride-close-tip, .joyride-prev-tip, .joyride-next-tip').off('click');
+      //Bind new handlers
       $('.joyride-close-tip').click(function(e) {
         endTip(e, interval_id, settings.cookieMonster, this);
       });
