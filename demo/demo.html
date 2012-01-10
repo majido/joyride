@@ -100,6 +100,20 @@
         <p>Now what are you waiting for? Add this to your projects and get the most out of your apps!</p>
   	  </li>
   	</ol>
+   <script type="text/javascript">
+     $(function(){
+       $("#joyRideTipContent").bind("joyride/in", function(e){
+          if (console) console.log("in:"+ $(e.target).data("id"));
+          switch($(e.target).data("id")) {
+             case "numero3": alert("Bind to joyride/in event to run your custom handler before each tip!");    
+             break;
+          }
+       }).bind("joyride/end", function(e){
+            if (console) console.log("tour end!");
+       });
+                                                                                                                                                                                                                      });
+    </script>
+
 
   	<!-- Run the plugin -->
 		<script type="text/javascript">
