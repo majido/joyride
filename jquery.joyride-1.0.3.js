@@ -109,14 +109,18 @@
       }
 
       showNextTip = function() {
-        var parentElementID = $(tipContent[count]).data('id'),
+        var tipElement = $(tipContent[count]),
+        tipLocation = tipElement.data('tip-location') || settings.tipLocation,
+        parentElementID = tipElement.data('id'),
         parentElement = $('#' + parentElementID);
 
         while (parentElement.offset() === null) {
           count++;
           skipCount++;
           prevCount++;
-          parentElementID = $(tipContent[count]).data('id'),
+          tipElement = $(tipContent[count]),
+          tipLocation = tipElement.data('tip-location') || settings.tipLocation,
+          parentElementID = tipElement.data('id'),
           parentElement = $('#' + parentElementID);
 
           if ($(tipContent).length < count)
@@ -153,10 +157,10 @@
           //   Tip Location
           // ++++++++++++++++++
 
-          if (settings.tipLocation.indexOf("bottom") != -1 ) {
+          if (tipLocation.indexOf("bottom") != -1 ) {
             currentTip.offset({top: (currentTipPosition.top + currentParentHeight + nubHeight), left: (currentTipPosition.left - bodyOffset.left)});
             currentTip.children('.joyride-nub').addClass('top').removeClass('bottom');
-          } else if (settings.tipLocation.indexOf("top") != -1) {
+          } else if (tipLocation.indexOf("top") != -1) {
             if (currentTipHeight >= currentTipPosition.top) {
               currentTip.offset({top: ((currentTipPosition.top + currentParentHeight + nubHeight) - bodyOffset.top), left: (currentTipPosition.left - bodyOffset.left)});
               currentTip.children('.joyride-nub').addClass('top').removeClass('bottom');
@@ -165,10 +169,10 @@
               currentTip.children('.joyride-nub').addClass('bottom').removeClass('top');
             }
           }
-          if (settings.tipLocation.indexOf("right") != -1 ) {
+          if (tipLocation.indexOf("right") != -1 ) {
               currentTip.offset({left: (currentTipPosition.left - bodyOffset.left - currentTip.width() + parentElement.width())});
               currentTip.children('.joyride-nub').addClass('right');
-          } else if (settings.tipLocation.indexOf("left") != -1 ) {
+          } else if (tipLocation.indexOf("left") != -1 ) {
               currentTip.children('.joyride-nub').removeClass('right');
           }
 
